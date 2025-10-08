@@ -1,1 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarConnect - Sistema Completo</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/diagrams.css">
+    <link rel="stylesheet" href="styles/forms.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Cabeçalho -->
+        <header class="header">
+            <h1>🚗 CarConnect</h1>
+            <p>Sistema Completo de Gerenciamento Automotivo</p>
+        </header>
 
+        <!-- Navegação por Abas -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="openTab('database')">Banco de Dados</button>
+            <button class="tab-btn" onclick="openTab('usecase')">Casos de Uso</button>
+            <button class="tab-btn" onclick="openTab('sequence')">Sequência</button>
+            <button class="tab-btn" onclick="openTab('state')">Estados</button>
+            <button class="tab-btn" onclick="openTab('forms')">Cadastros</button>
+        </nav>
+
+        <!-- Conteúdo das Abas -->
+        <div class="tab-content">
+            <!-- ABA 1: Banco de Dados -->
+            <div id="database" class="tab-pane active">
+                <h2>🗃️ Banco de Dados - SQL</h2>
+                <div class="code-container">
+                    <pre id="sql-code" class="language-sql"></pre>
+                </div>
+                <div class="db-tables" id="db-tables"></div>
+            </div>
+
+            <!-- ABA 2: Diagrama de Casos de Uso -->
+            <div id="usecase" class="tab-pane">
+                <h2>📊 Diagrama de Casos de Uso</h2>
+                <div class="diagram-container">
+                    <div class="use-case-diagram" id="use-case-diagram"></div>
+                </div>
+            </div>
+
+            <!-- ABA 3: Diagrama de Sequência -->
+            <div id="sequence" class="tab-pane">
+                <h2>🔄 Diagrama de Sequência</h2>
+                <div class="diagram-container">
+                    <div class="sequence-diagram" id="sequence-diagram"></div>
+                </div>
+            </div>
+
+            <!-- ABA 4: Diagrama de Estados -->
+            <div id="state" class="tab-pane">
+                <h2>📈 Diagrama de Estados</h2>
+                <div class="diagram-container">
+                    <div class="state-diagram" id="state-diagram"></div>
+                </div>
+            </div>
+
+            <!-- ABA 5: Formulários de Cadastro -->
+            <div id="forms" class="tab-pane">
+                <h2>📝 Sistema de Cadastro</h2>
+                <div class="forms-container">
+                    <div class="form-section">
+                        <h3>Selecione o Tipo de Cadastro:</h3>
+                        <div class="form-type-selector">
+                            <button class="form-type-btn active" onclick="showForm('cliente')">👤 Cliente</button>
+                            <button class="form-type-btn" onclick="showForm('vendedor')">💼 Vendedor</button>
+                            <button class="form-type-btn" onclick="showForm('veiculo')">🚗 Veículo</button>
+                        </div>
+                    </div>
+
+                    <!-- Formulário Cliente -->
+                    <div id="cliente-form" class="form-wrapper active">
+                        <form class="cadastro-form" onsubmit="cadastrarCliente(event)">
+                            <h3>📋 Cadastro de Cliente</h3>
+                            <div class="form-grid">
+                                <input type="text" placeholder="Nome" required>
+                                <input type="text" placeholder="Sobrenome" required>
+                                <input type="text" placeholder="CPF" required>
+                                <input type="text" placeholder="RG">
+                                <input type="tel" placeholder="Telefone" required>
+                                <input type="date" placeholder="Data Nascimento" required>
+                                <input type="email" placeholder="E-mail" required>
+                                <input type="password" placeholder="Senha" required>
+                                <textarea placeholder="Endereço Completo" rows="3"></textarea>
+                            </div>
+                            <button type="submit">Cadastrar Cliente</button>
+                        </form>
+                    </div>
+
+                    <!-- Formulário Vendedor -->
+                    <div id="vendedor-form" class="form-wrapper">
+                        <form class="cadastro-form" onsubmit="cadastrarVendedor(event)">
+                            <h3>💼 Cadastro de Vendedor</h3>
+                            <div class="form-grid">
+                                <input type="text" placeholder="Nome" required>
+                                <input type="text" placeholder="Sobrenome" required>
+                                <input type="text" placeholder="CPF" required>
+                                <input type="text" placeholder="RG">
+                                <input type="tel" placeholder="Telefone" required>
+                                <input type="date" placeholder="Data Nascimento" required>
+                                <input type="email" placeholder="E-mail" required>
+                                <input type="password" placeholder="Senha" required>
+                                <textarea placeholder="Endereço Completo" rows="3"></textarea>
+                            </div>
+                            <button type="submit">Cadastrar Vendedor</button>
+                        </form>
+                    </div>
+
+                    <!-- Formulário Veículo -->
+                    <div id="veiculo-form" class="form-wrapper">
+                        <form class="cadastro-form" onsubmit="cadastrarVeiculo(event)">
+                            <h3>🚗 Cadastro de Veículo</h3>
+                            <div class="form-grid">
+                                <select required>
+                                    <option value="">Selecione a Marca</option>
+                                    <option>Fiat</option>
+                                    <option>Volkswagen</option>
+                                    <option>Chevrolet</option>
+                                    <option>Ford</option>
+                                    <option>Toyota</option>
+                                </select>
+                                <input type="text" placeholder="Modelo" required>
+                                <input type="number" placeholder="Ano Fabricação" required>
+                                <input type="number" placeholder="Ano Modelo" required>
+                                <input type="text" placeholder="Cor" required>
+                                <select required>
+                                    <option value="">Combustível</option>
+                                    <option>Gasolina</option>
+                                    <option>Álcool</option>
+                                    <option>Flex</option>
+                                    <option>Diesel</option>
+                                    <option>Elétrico</option>
+                                </select>
+                                <input type="number" placeholder="Preço R$" step="0.01" required>
+                                <textarea placeholder="Descrição do Veículo" rows="3"></textarea>
+                            </div>
+                            <button type="submit">Cadastrar Veículo</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/database.js"></script>
+    <script src="scripts/diagrams.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="assets/diagram-data.js"></script>
+    <script>
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+    </script>
+</body>
+</html>
